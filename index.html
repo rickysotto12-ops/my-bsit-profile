@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>My BSIT Student Profile</title>
+
+<style>
+/* ===== GENERAL STYLING ===== */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --cyan: #a9dbe7;
+    --border: #456b85;
+    --card: rgba(10, 25, 45, 0.97);
+    --light: #d0dce8;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #e1e8f0;
+    background:
+        linear-gradient(rgba(5,12,27,.8), rgba(5,12,27,.9)),
+        url("background.jpg") center / cover fixed;
+}
+
+h1, h2 {
+    color: var(--cyan);
+    text-shadow: 2px 2px 6px rgba(80,180,210,.5);
+}
+
+p {
+    line-height: 1.7;
+}
+
+/* ===== WELCOME HEADER ===== */
+
+.welcome-header {
+    max-width: 850px;
+    margin: 10px auto 25px;
+    padding: 20px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.4),
+                0 0 10px rgba(100,180,210,.2);
+    animation: fadeIn .8s ease-out both;
+}
+
+.welcome-header h2 {
+    margin: 0 0 10px;
+    font-size: clamp(22px, 4vw, 32px);
+    text-shadow: 2px 2px 6px rgba(80,180,210,.5);
+}
+
+.welcome-header p {
+    margin: 0;
+    color: var(--light);
+}
+
+/* ===== PROFILE CARD ===== */
+
+.profile, .side-box, .hobby-section {
+    background: var(--card);
+    border: 2px solid var(--border);
+    box-shadow: 0 6px 18px rgba(0,0,0,.4),
+                0 0 10px rgba(100,180,210,.2);
+}
+
+.profile {
+    max-width: 850px;
+    margin: 20px auto;
+    padding: 35px 25px;
+    border-radius: 22px;
+    animation: fadeIn .8s ease-out both;
+    transition: transform .35s, box-shadow .35s;
+}
+
+.profile:hover, .side-box:hover, .hobby-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 22px rgba(0,0,0,.4),
+                0 0 14px rgba(100,180,210,.3);
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #8bbdce;
+    opacity: .9;
+    box-shadow: 0 4px 14px rgba(0,0,0,.4);
+    transition: transform .35s, opacity .35s;
+}
+
+.profile-img:hover {
+    transform: scale(1.05) rotate(2deg);
+    opacity: 1;
+}
+
+.profile h1 {
+    color: var(--cyan);
+    font-size: clamp(28px, 5vw, 40px);
+    text-shadow: 1px 2px 5px rgba(0,0,0,.5);
+    animation: none;
+    margin-bottom: 8px;
+}
+
+.section-label {
+    color: var(--cyan);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.profile p {
+    max-width: 600px;
+    margin: 15px auto;
+}
+
+/* ===== CLICK ME: PURE HTML AND CSS ===== */
+
+.toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.click-button {
+    display: inline-block;
+    padding: 12px 28px;
+    margin-top: 10px;
+    color: #102333;
+    background: var(--cyan);
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.click-button:hover {
+    background: #c1eaf1;
+    transform: scale(1.04);
+    box-shadow: 0 5px 14px rgba(0,0,0,.35);
+}
+
+.toggle-input:focus-visible + .click-button {
+    outline: 3px solid white;
+    outline-offset: 4px;
+}
+
+#message {
+    display: none;
+    color: var(--cyan);
+    font-weight: bold;
+}
+
+#toggle-message:checked ~ #message {
+    display: block;
+}
+
+/* ===== COURSE AND GOALS ===== */
+
+.top-section, .hobby-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+    max-width: 950px;
+    margin: 35px auto;
+}
+
+.side-box {
+    min-width: 0;
+    min-height: 300px;
+    padding: 25px;
+    border-radius: 18px;
+    transition: transform .35s, box-shadow .35s;
+}
+
+.box-icon {
+    font-size: 42px;
+    margin: 5px 0 15px;
+    transition: transform .35s;
+}
+
+.side-box:hover .box-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.side-box h2 {
+    font-size: 23px;
+}
+
+.side-box p, .hobby-item p,
+.hobby-section > p {
+    color: var(--light);
+}
+
+/* ===== GOALS LIST ===== */
+
+.goal-list {
+    padding: 0;
+    margin-top: 20px;
+    list-style: none;
+    text-align: left;
+}
+
+.goal-list li {
+    margin: 14px 0;
+    color: var(--light);
+    line-height: 1.6;
+}
+
+.check {
+    color: var(--cyan);
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+/* ===== HOBBIES ===== */
+
+.hobby-section {
+    max-width: 1100px;
+    width: 100%;
+    margin: 35px auto;
+    padding: 28px;
+    border-radius: 20px;
+}
+
+.hobby-container {
+    margin-top: 25px;
+}
+
+.hobby-item {
+    min-width: 0;
+    padding: 20px;
+    background: rgba(16,39,62,.97);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.35);
+    transition: transform .35s, box-shadow .35s;
+}
+
+.hobby-item h3 {
+    color: var(--cyan);
+    text-shadow: 1px 2px 5px rgba(0,0,0,.4);
+}
+
+.hobby-img {
+    width: 100%;
+    max-width: 380px;
+    height: 240px;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    opacity: .88;
+    box-shadow: 0 4px 12px rgba(0,0,0,.35);
+    transition: transform .35s, opacity .35s;
+}
+
+.hobby-img:hover {
+    transform: scale(1.02);
+    opacity: 1;
+}
+
+/* ===== CSS ANIMATION ===== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+    margin-top: 35px;
+    padding: 20px;
+    color: #b9cbd9;
+    border-top: 1px solid var(--border);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+@media (max-width: 650px) {
+    body {
+        padding: 10px;
+        background-attachment: scroll;
+    }
+
+    .profile {
+        padding: 25px 15px;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .top-section, .hobby-container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .side-box {
+        min-height: 0;
+        padding: 22px 16px;
+    }
+
+    .side-box h2 {
+        font-size: 20px;
+    }
+
+    .hobby-section {
+        padding: 20px 12px;
+    }
+
+    .hobby-item {
+        padding: 15px;
+    }
+
+    .hobby-img {
+        height: 210px;
+    }
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== WELCOME HEADER ===== -->
+
+<header class="welcome-header">
+    <h2>WELCOME TO MY WEBPAGE</h2>
+    <p>Get to know me, my course, my goals, and my hobbies!</p>
+</header>
+
+<!-- ===== PROFILE ===== -->
+
+<section class="profile">
+    <img src="ricky.jpg" alt="Profile photo of Ricky Sotto" class="profile-img">
+
+    <h1>Ricky Sotto</h1>
+    <div class="section-label">BSIT 2B - PSEUDOCODE</div>
+
+    <p>
+        Hi! I'm Ricky Sotto. I'm a simple and friendly person
+        who enjoys learning new things and spending time
+        doing what I love.
+    </p>
+
+    <input type="checkbox" id="toggle-message" class="toggle-input">
+    <label for="toggle-message" class="click-button">Click Me</label>
+
+    <p id="message">Welcome to my BSIT Student Profile!</p>
+</section>
+
+<main>
+
+    <!-- ===== COURSE AND GOALS ===== -->
+
+    <div class="top-section">
+
+        <section class="side-box">
+            <div class="box-icon" aria-hidden="true">💻</div>
+            <h2>MY COURSE</h2>
+            <h3>Bachelor of Science in Information Technology</h3>
+            <p>
+                I am learning about computers, programming,
+                and technology to gain knowledge and prepare
+                for my future career.
+            </p>
+        </section>
+
+        <section class="side-box">
+            <div class="box-icon" aria-hidden="true">🎯</div>
+            <h2>MY GOALS</h2>
+
+            <ul class="goal-list">
+                <li><span class="check">✔</span>Finish my studies.</li>
+                <li><span class="check">✔</span>Improve my knowledge and skills.</li>
+                <li><span class="check">✔</span>Get a good job in the future.</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <!-- ===== HOBBY AND INTEREST ===== -->
+
+    <section class="hobby-section">
+        <h2>HOBBY AND INTEREST</h2>
+        <p>These are some of the activities I enjoy during my free time.</p>
+
+        <div class="hobby-container">
+
+            <article class="hobby-item">
+                <h3>ONLINE GAMES</h3>
+                <img src="og.jpg" alt="Online gaming" class="hobby-img">
+                <p>
+                    I enjoy playing online games because they are fun
+                    and help me relax during my free time.
+                </p>
+            </article>
+
+            <article class="hobby-item">
+                <h3>BASKETBALL</h3>
+                <img src="bb.jpg" alt="Playing basketball" class="hobby-img">
+                <p>
+                    I enjoy playing basketball because it keeps me
+                    active and helps me develop teamwork.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    &copy; 2026 Ricky Sotto | BSIT 2B PSEUDOCODE
+</footer>
+
+</body>
+</html>
